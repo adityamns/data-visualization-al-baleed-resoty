@@ -721,7 +721,7 @@ def show_predictive_analytics(df):
         return
 
     # Create sub-tabs for different models
-    model_tabs = st.tabs(["🌲 Random Forest", "🎯 SVM", "🧠 LSTM Deep Learning", "📊 Model Comparison"])
+    model_tabs = st.tabs(["🌲 Random Forest", "🎯 SVM"])
 
     with model_tabs[0]:
         show_random_forest(df)
