@@ -594,7 +594,7 @@ def show_diagnostic_analytics(df):
         words = text.lower().split()
         stopwords = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'is', 'was', 'were', 'very',
                     'this', 'that', 'our', 'baleed', 'resort', 'you', 'can', 'are', 'like', 'will', 'have', 'been', 'would', 'they'}
-        words = [w for w in words if w not in stopwords_list and len(w) > 2]
+        words = [w for w in words if w not in stopwords and len(w) > 2]
         bigrams = [' '.join([words[i], words[i+1]]) for i in range(len(words)-1)]
         return Counter(bigrams).most_common(n)
 
