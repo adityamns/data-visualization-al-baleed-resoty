@@ -21,6 +21,7 @@ from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score, precision_score, recall_score, f1_score
 import warnings
 import time
+from pathlib import Path
 
 # Deep Learning imports for LSTM
 try:
@@ -176,9 +177,12 @@ def main():
     st.markdown('<p class="sub-header">Interactive Analytics Dashboard - TripAdvisor Reviews Analysis</p>', unsafe_allow_html=True)
     
     # File uploader
-    uploaded_file = st.sidebar.file_uploader("📁 Upload Dataset (Excel)", type=['xlsx', 'xls'])
+    # uploaded_file = st.sidebar.file_uploader("📁 Upload Dataset (Excel)", type=['xlsx', 'xls'])
+    # Hardcoded file path
+    default_file_path = "Al_Baleed_Resort.xlsx"
     
-    if uploaded_file is not None:
+    # if uploaded_file is not None:
+    if Path(default_file_path).exists():
         # Load data
         with st.spinner('Loading and processing data...'):
             df = load_and_process_data(uploaded_file)
@@ -264,13 +268,12 @@ def main():
             show_raw_data(filtered_df)
     
     else:
-        st.info("👈 Please upload the dataset using the sidebar")
-        st.markdown("""
+        st.error(f"❌ File not found: '{default_file_path}'. Please upload it or ensure it's in the correct directory.")
+        st.info("""
         ### 📖 Instructions:
-        1. Click on the **Browse files** button in the sidebar
-        2. Upload your Excel file (`Al_Baleed_Resort.xlsx`)
-        3. The dashboard will automatically process and display the analytics
-        
+        1. Make sure the `Al_Baleed_Resort.xlsx` file is in the same directory as this notebook.
+        2. The dashboard will automatically process and display the analytics.
+
         ### 📊 Dashboard Features:
         - **Interactive filters** (Date, Trip Type, Rating, Season)
         - **6-Phase Analytics** (Overview → Prescriptive)
