@@ -185,9 +185,9 @@ def main():
     if Path(default_file_path).exists():
         # Load data
         with st.spinner('Loading and processing data...'):
-            df = load_and_process_data(uploaded_file)
+            df = load_and_process_data(default_file_path)
         
-        st.sidebar.success(f'✅ Data loaded: {len(df):,} reviews')
+        st.sidebar.success(f'✅ Data loaded: {len(df):,} reviews from {default_file_path}')
         
         # Sidebar Filters
         st.sidebar.markdown("---")
