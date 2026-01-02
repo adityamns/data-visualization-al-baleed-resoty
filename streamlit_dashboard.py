@@ -532,7 +532,10 @@ def show_diagnostic_analytics(df):
                     'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may',
                     'might', 'must', 'can', 'this', 'that', 'these', 'those', 'i', 'we',
                     'you', 'he', 'she', 'it', 'they', 'them', 'their', 'my', 'your', 'his',
-                    'her', 'its', 'our', 'resort', 'hotel', 'stay', 'stayed'}
+                    'her', 'its', 'our', 'resort', 'hotel', 'stay', 'stayed', 'so', 'more',
+                    'not', 'which', 'there', 'out', 'again', 'make', 'made', 'just', 'very',
+                    'salalah', 'alway', 'about', 'what', 'up', 'if', 'anantara', 'need', 'u',
+                    'go', 'by', 'al baleed'}
         
         wordcloud_positive = WordCloud(
             width=800, height=400,
@@ -553,6 +556,17 @@ def show_diagnostic_analytics(df):
             negative_reviews = df[df['Rating'] <= 2]['Review Text'].str.cat(sep=' ')
             negative_reviews = negative_reviews.lower()
             negative_reviews = re.sub(r'[^a-z\s]', '', negative_reviews)
+            stopwords = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for',
+                        'of', 'with', 'is', 'was', 'were', 'are', 'been', 'be', 'have', 'has',
+                        'had', 'do', 'does', 'did', 'will', 'would', 'could', 'should', 'may',
+                        'might', 'must', 'can', 'this', 'that', 'these', 'those', 'i', 'we',
+                        'you', 'he', 'she', 'it', 'they', 'them', 'their', 'my', 'your', 'his',
+                        'her', 'its', 'our', 'resort', 'hotel', 'stay', 'stayed', 'no', 'not', 'if',
+                        'anantara', 'about', 'if', 'than', 'as', 'such', 'so', 'only', 'like',
+                        'from', 'us', 'very', 'al baleed', 'salalah', 'until', 'got', 'then', 'up',
+                        'just', 'really', 'go', 'out', 'very', 'since', 'there', 'nice', 'by', 'which',
+                        'excellence', 'any', 'one', 'what', 'when', 'without', 'however', 'back',
+                        }
             
             wordcloud_negative = WordCloud(
                 width=800, height=400,
@@ -575,7 +589,8 @@ def show_diagnostic_analytics(df):
 
     def get_bigrams(text, n=15):
         words = text.lower().split()
-        stopwords_list = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'is', 'was', 'were'}
+        stopwords = {'the', 'a', 'an', 'and', 'or', 'but', 'in', 'on', 'at', 'to', 'for', 'of', 'with', 'is', 'was', 'were', 'very',
+                    'this', 'that', 'our', 'baleed', 'resort', 'you', 'can', 'are', 'like', 'will', 'have', 'been', 'would', 'they'}
         words = [w for w in words if w not in stopwords_list and len(w) > 2]
         bigrams = [' '.join([words[i], words[i+1]]) for i in range(len(words)-1)]
         return Counter(bigrams).most_common(n)
@@ -711,15 +726,15 @@ def show_predictive_analytics(df):
     with model_tabs[1]:
         show_svm_model(df)
 
-    with model_tabs[2]:
-        if TENSORFLOW_AVAILABLE:
-            show_lstm_models(df)
-        else:
-            st.error("❌ TensorFlow is not installed. Please install it to use LSTM models.")
-            st.code("pip install tensorflow", language="bash")
+    # with model_tabs[2]:
+    #     if TENSORFLOW_AVAILABLE:
+    #         show_lstm_models(df)
+    #     else:
+    #         st.error("❌ TensorFlow is not installed. Please install it to use LSTM models.")
+    #         st.code("pip install tensorflow", language="bash")
 
-    with model_tabs[3]:
-        show_model_comparison(df)
+    # with model_tabs[3]:
+    #     show_model_comparison(df)
 
 
 # ==================== RANDOM FOREST MODEL ====================
